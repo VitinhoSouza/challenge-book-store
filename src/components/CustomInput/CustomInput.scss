@@ -1,0 +1,50 @@
+.containerInput{
+    height: 60px;
+    width: 368px;
+
+    background: rgba(0, 0, 0, 0.32);
+    backdrop-filter: blur(2px);
+    border-radius: 4px;
+
+    display: flex;
+    flex-direction: column;
+
+    >span,input{
+        margin-left: 10px;
+        margin-top:5px;
+    }
+
+    >span{
+        font-weight: 400;
+        font-size: 12px;
+        opacity: 0.5;
+    }
+
+    input{
+        max-width: 90%;
+        color: white;
+
+        text-decoration: none;
+        background:none;
+        border: none;
+    }
+    .buttonSend{
+        color: #B22E6F;
+        font-weight: 500;
+        font-size: 16px;
+        margin-left: 0;
+
+        position: relative;
+        left: 250px;
+        bottom:35px;
+        background: white;
+
+        border-radius: 44px;
+        width: 85px;
+        min-height: 35px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

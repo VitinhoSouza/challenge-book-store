@@ -1,0 +1,51 @@
+.pageLogin{
+
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    background: url('../../assets/background.jpg');
+    color: white;
+
+    /* .backgroundImg{
+        position: absolute;
+        min-width: 800px; /* Definir onde fica o celular na versão smartphone 
+        max-width: 1400px;
+        width: 100%;
+        height: 100vh;
+    } */
+
+    .content{
+        position: relative;
+
+        width: 400px;
+        height: 200px;
+
+        margin-left: 100px;
+        margin-top: 80px;
+
+        .title{
+
+            img{
+
+            }
+            span{
+                font-weight: 300;
+                font-size: 28px;
+                margin-left: 8px;
+            }
+        }
+
+        .formLogin{
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+    }
+}
