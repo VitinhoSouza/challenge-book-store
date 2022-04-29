@@ -46,6 +46,19 @@
             flex-direction: column;
             align-items: flex-start;
             gap: 2rem;
+
+            .wrongLogin{
+                width: 239px;
+                height: 48px;
+
+                background: rgba(255, 255, 255, 0.4);
+                border-radius: 4px;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+            }
         }
     }
 }

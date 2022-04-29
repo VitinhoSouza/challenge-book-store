@@ -2,39 +2,48 @@ import './CustomInput.scss'
 
 
 interface CustomInputProps {
-    type: 'email' | 'password'
+    type: 'email' | 'password';
+    tryLogin?: () => void;
+    handleEmail?: (email:string)=>void;
+    handlePassword?: (password:string)=>void;
 }
 
-function inputEmail (){
+function inputEmail (handleEmail: ((email:string)=>void) | undefined){
 
     return(
         <div className="containerInput">
             <span>Email</span>
-            <input type="email" placeholder='Digite seu email'/>
+            {handleEmail !== undefined &&
+                <input type="email" placeholder='Digite seu email' onChange={(e)=>handleEmail(e.target.value)}/>
+            }   
         </div>
     )
 }
 
-function inputPassword (){
+function inputPassword (handlePassword: ((password:string)=>void) | undefined, tryLogin: (()=>void) | undefined){
 
     return(
         <div className="containerInput">
             <span>Senha</span>
-            <input type="password" placeholder='Digite sua senha'/>
-            <div className='buttonSend'>
-                Entrar
-            </div>
+            {handlePassword !== undefined &&
+                <input type="password" placeholder='Digite sua senha' onChange={(e)=>handlePassword(e.target.value)}/>
+            }
+            {tryLogin !== undefined &&
+                <div className='buttonSend' onClick={tryLogin}>
+                    Entrar
+                </div>
+            }
         </div>
     )
 }
 
-export function CustomInput({type}:CustomInputProps){
+export function CustomInput({type,handleEmail,handlePassword,tryLogin}:CustomInputProps){
 
     switch(type){
         case 'email':
-            return inputEmail();
+            return inputEmail(handleEmail);
         case 'password':
-            return inputPassword();
+            return inputPassword(handlePassword,tryLogin);
         default:
             return(
                 <div>
