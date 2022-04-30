@@ -120,6 +120,13 @@
 
             }
 
+            .disabled{
+                cursor: not-allowed;
+                img{
+                    opacity: 0.5;
+                }
+            }
+
             .previewArrow-container{
                 margin-right: 0.5rem;
             }

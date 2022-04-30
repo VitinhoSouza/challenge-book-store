@@ -1,66 +1,69 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import { CustomInput } from '../../components/CustomInput/CustomInput';
-import {booksAPI} from '../../services/booksAPI'
-import {useAuth} from '../../hooks/useAuth';
-import history from '../../history';
+import CustomInput from "../../components/CustomInput/CustomInput";
+import { booksAPI } from "../../services/booksAPI";
+import { useAuth } from "../../hooks/useAuth";
+// import history from "../../history";
 
-import logoIcon from '../../assets/noz.svg';
+import logoIcon from "../../assets/noz.svg";
 
-import './Login.scss'
+import "./Login.scss";
 
-export function Login(){
+export default function Login() {
+  const { auth, setAuthLS } = useAuth();
 
-    // desafio@appnoz.com.br
-    // 12341234
+  if (auth.token !== "null" && auth.token !== null) {
+    // history.push("/books");
+    window.location.replace("http://localhost:3000/books");
+  }
 
-    const {auth,setAuthLS} = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [wrongLogin, setWrongLogin] = useState(false);
 
-    if(auth.token !== 'null' && auth.token !== null){
-        history.push('/books');
+  async function tryLogin() {
+    const res = await booksAPI.signin({ email, password });
+    if (res.token === "invalid") {
+      setWrongLogin(true);
+    } else {
+      setWrongLogin(false);
+      setAuthLS(res);
+      // history.push("/books");
+      window.location.replace("http://localhost:3000/books");
     }
+  }
 
-    const [email,setEmail] = useState('');
-    const [password,setPassword] = useState('');
-    const [wrongLogin,setWrongLogin] = useState(false);
+  async function tryRefreshToken() {
+    const res = await booksAPI.refreshToken(
+      auth.token !== null ? auth.token : ""
+    );
+    console.log(res);
+    // history.push("/");
+  }
 
-    async function tryLogin(){
-        const res = await booksAPI.signin({email,password});
-        if(res.token === 'invalid'){
-            setWrongLogin(true);
-        }
-        else{
-            setWrongLogin(false);
-            setAuthLS(res);
-            history.push("/books");
-        }
-    }
-
-    async function tryRefreshToken(){
-        const res = await booksAPI.refreshToken(auth.token !== null ? auth.token : "");
-        console.log(res);
-        // history.push("/");
-    }
-
-    return(
-        <div className='pageLogin'>
-            <div className="content">
-                <div className='title'>
-                    <img src={logoIcon} alt="NOZ" />
-                    <span>Books</span>
-                </div>
-
-                <div className='formLogin'>
-                    <CustomInput type='email' handleEmail={setEmail} />
-                    <CustomInput type='password' handlePassword={setPassword} tryLogin={()=>{tryLogin();tryRefreshToken();}}/>
-                    {
-                        wrongLogin && 
-                        <div className='wrongLogin'>
-                            Email e/ou senha incorretos.
-                        </div>
-                    }
-                </div>
-            </div>
+  return (
+    <div className="pageLogin">
+      <div className="content">
+        <div className="title">
+          <img src={logoIcon} alt="NOZ" />
+          <span>Books</span>
         </div>
-    )
+
+        <div className="formLogin">
+          <CustomInput type="email" handleEmail={setEmail} />
+          <CustomInput
+            type="password"
+            handlePassword={setPassword}
+            tryLogin={() => {
+              tryLogin();
+              tryRefreshToken();
+            }}
+          />
+          {wrongLogin && (
+            <div className="wrongLogin">Email e/ou senha incorretos.</div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
