@@ -14,7 +14,9 @@ function App() {
     <AuthProvider>
       <Router history={history}>
 
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Login} />
+
+        <Route path="/books" component={Home} />
 
         <Route path="/login" component={Login} />
 

@@ -5,7 +5,7 @@ import {booksAPI} from '../../services/booksAPI'
 import {useAuth} from '../../hooks/useAuth';
 import history from '../../history';
 
-import nozImg from '../../assets/noz.svg';
+import logoIcon from '../../assets/noz.svg';
 
 import './Login.scss'
 
@@ -16,9 +16,8 @@ export function Login(){
 
     const {auth,setAuthLS} = useAuth();
 
-    console.log(auth);
     if(auth.token !== 'null' && auth.token !== null){
-        history.push('/');
+        history.push('/books');
     }
 
     const [email,setEmail] = useState('');
@@ -33,21 +32,27 @@ export function Login(){
         else{
             setWrongLogin(false);
             setAuthLS(res);
-            history.push("/");
+            history.push("/books");
         }
+    }
+
+    async function tryRefreshToken(){
+        const res = await booksAPI.refreshToken(auth.token !== null ? auth.token : "");
+        console.log(res);
+        // history.push("/");
     }
 
     return(
         <div className='pageLogin'>
             <div className="content">
                 <div className='title'>
-                    <img src={nozImg} alt="NOZ" />
+                    <img src={logoIcon} alt="NOZ" />
                     <span>Books</span>
                 </div>
 
                 <div className='formLogin'>
                     <CustomInput type='email' handleEmail={setEmail} />
-                    <CustomInput type='password' handlePassword={setPassword} tryLogin={tryLogin}/>
+                    <CustomInput type='password' handlePassword={setPassword} tryLogin={()=>{tryLogin();tryRefreshToken();}}/>
                     {
                         wrongLogin && 
                         <div className='wrongLogin'>

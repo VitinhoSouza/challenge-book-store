@@ -7,6 +7,7 @@ interface AuthProviderProps {
 interface AuthContextData {
     auth:{
         token:string | null;
+        refreshToken:string | null;
         name:string | null;
     },
     setAuthLS:(newAuth:any)=>void
@@ -16,15 +17,14 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export function AuthProvider({children}:AuthProviderProps){
 
-    const [auth, setAuth] = useState({token:localStorage.getItem("token"),name:localStorage.getItem("name")});
+    const [auth, setAuth] = useState({token:localStorage.getItem("token"),refreshToken:localStorage.getItem("refreshToken"),name:localStorage.getItem("name")});
 
     const setAuthLS = (newAuth:any) => {
         setAuth(newAuth);
         localStorage.setItem("token",newAuth.token);
         localStorage.setItem("name",newAuth.name);
+        localStorage.setItem("refreshToken",newAuth.refreshToken);
     }
-
-    console.log("HOOK",auth);
 
     return(
         <AuthContext.Provider value={{auth,setAuthLS}}>
