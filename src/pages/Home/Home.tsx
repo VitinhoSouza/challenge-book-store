@@ -160,14 +160,12 @@ export function Home(){
                     <div className='text'>
                         Página <span> 1 </span> de <span>100</span>
                     </div>
-                    <div className='buttons'>
-                        <i>
-                            <img src={arrowIcon} alt="preview" className='previewArrow'/>
-                        </i>
-                        <i>
-                            <img src={arrowIcon} alt="next" className='nextArrow'/>
-                        </i>
-                    </div>
+                    <i className='previewArrow-container'>
+                        <img src={arrowIcon} alt="preview" className='previewArrow'/>
+                    </i>
+                    <i className='nextArrow-container'>
+                        <img src={arrowIcon} alt="next" className='nextArrow'/>
+                    </i>
                 </div>
             </div>
 

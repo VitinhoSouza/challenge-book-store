@@ -10,13 +10,13 @@
     flex-direction: column;
 
     >span,input{
-        margin-left: 10px;
-        margin-top:5px;
+        margin-left: 0.625rem;
+        margin-top: 0.3125rem;
     }
 
     >span{
         font-weight: 400;
-        font-size: 12px;
+        font-size: 0.75rem;
         opacity: 0.5;
     }
 
@@ -31,7 +31,7 @@
     .buttonSend{
         color: #B22E6F;
         font-weight: 500;
-        font-size: 16px;
+        font-size: 1rem;
         margin-left: 0;
 
         position: relative;

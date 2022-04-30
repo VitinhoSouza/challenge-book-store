@@ -10,7 +10,7 @@
     .container{
         width: 85%;
         height: 80%;
-        margin-bottom: 50px;
+        margin-bottom: 3.125rem;
 
         header{
             width: 100%;
@@ -35,12 +35,12 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                width: 180px;
-                height: 35px;
+                width: 11.25rem;
+                height: 2.18rem;
 
                 .user{
                     font-weight: 400;
-                    font-size: 12px;
+                    font-size: 0.75rem;
 
                     span{
                         width: 100%;
@@ -48,8 +48,8 @@
                     }
                 }
                 .buttonLogout{
-                    width: 32px;
-                    height: 32px;  
+                    width: 2rem;
+                    height: 2rem;  
                     background: none;
                     cursor: pointer;
                     border: 1px solid rgba(0,0,0,0.5);
@@ -58,9 +58,9 @@
                     text-align: center;
 
                     img{
-                        width: 18px;
-                        height: 18px;
-                        margin-top: 5px;
+                        width: 1.125rem;
+                        height: 1.125rem;
+                        margin-top: 0.3125rem;
                     }
                 }
             }
@@ -81,46 +81,50 @@
         .turnPage{
             position: relative;
             width: 100%;
-            margin-top: 10px;
-            // bottom: -270px ;
+            height: 3.5rem;
+            margin-top: 0.625rem;
+            
             display: flex;
             justify-content:flex-end;
             align-items: center;
 
             .text{
-                margin-right: 10px;
+                margin-right: 0.625rem;
                 font-weight: 400;
-                font-size: 12px;
+                font-size: 0.75rem;
 
                 span{
                     font-weight: bold;
                 }
             }
 
-            .buttons{
-                width: 80px;
+            i{
+                cursor: pointer;
+                border: 1px solid rgba(0,0,0,0.3);
+                border-radius: 15px;
+                width:1.875rem;
+                height: 1.875rem;          
+                
                 display: flex;
-                justify-content: space-evenly;
-                i{
-                    cursor: pointer;
-                    border: 1px solid rgba(0,0,0,0.3);
-                    border-radius: 15px;
-                    width:30px;
-                    height: 30px;          
-                    
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+                justify-content: center;
+                align-items: center;
 
-                    .previewArrow,.nextArrow{
-                        width: 10px;
-                        height: 10px;
-                    }
-
-                    .previewArrow{
-                        transform: rotate(180deg);
-                    }
+                .previewArrow,.nextArrow{
+                    width: 0.625rem;
+                    height: 0.625rem;
                 }
+
+                .previewArrow{
+                    transform: rotate(180deg);
+                }
+
+            }
+
+            .previewArrow-container{
+                margin-right: 0.5rem;
+            }
+            .nextArrow-container{
+                order: 3;
             }
         }
     }
@@ -133,11 +137,28 @@
         .container{
             header{
                 .userWithLogout{
-                    width: 32px;
+                    width: 2rem;
                     .user{
                         width: 0;
                         visibility: hidden;
                     }
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:420px){
+    .pageHome{
+        .container{
+            .turnPage{
+                justify-content: center;
+                margin-left: 1.5rem;
+                .previewArrow-container{
+                    order: 1;
+                }
+                .text{
+                    order: 2;
                 }
             }
         }

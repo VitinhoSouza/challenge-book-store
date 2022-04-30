@@ -18,8 +18,8 @@
         max-width: 28rem;
         height: 200px;
 
-        margin-left: 100px;
-        margin-top: 80px;
+        margin-left: 6.25rem;
+        margin-top: 5rem;
 
         .title{
 
@@ -28,20 +28,20 @@
             }
             span{
                 font-weight: 300;
-                font-size: 28px;
-                margin-left: 8px;
+                font-size: 1.75rem;
+                margin-left: 0.5rem;
             }
         }
 
         .formLogin{
-            margin-top: 40px;
+            margin-top: 2.5rem;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             gap: 2rem;
 
             .wrongLogin{
-                width: 239px;
+                width: 14.9rem;
                 height: 48px;
 
                 background: rgba(255, 255, 255, 0.4);
@@ -62,6 +62,8 @@
         align-items: center;
         .content{
             margin: 0;
+            margin-bottom: 4rem;
         }
     }
 }
+
