@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { useState } from "react";
 import CustomInput from "./CustomInput";
 
 export default {

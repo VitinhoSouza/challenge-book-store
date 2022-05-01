@@ -43,7 +43,9 @@ export default function ModalBook({
 
           <div className="info">
             <div className="header">
-              <span className="title">{title}</span>
+              <span className="title">
+                {title.length > 40 ? `${title.substr(0, 40)}...` : title}
+              </span>
               {authors.map((authorName: string) => (
                 <span key={authorName} className="author">
                   {authorName}
@@ -71,7 +73,9 @@ export default function ModalBook({
               </div>
               <div className="pair">
                 <span className="title">Título Original</span>
-                <span className="contentInfo">{title}</span>
+                <span className="contentInfo">
+                  {title.length > 40 ? `${title.substr(0, 40)}...` : title}
+                </span>
               </div>
               <div className="pair">
                 <span className="title">ISBN-10</span>
@@ -87,7 +91,9 @@ export default function ModalBook({
               <span id="titleInfo">RESENHA DA EDITORA</span>
               <span className="text">
                 <img src={quotesIcon} alt="" />
-                {description}
+                {description.length > 400
+                  ? `${description.substr(0, 400)}...`
+                  : description}
               </span>
             </div>
           </div>

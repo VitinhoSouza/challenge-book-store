@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/require-default-props */
+/* eslint-disable no-unused-vars */
 import "./CustomInput.scss";
 
 interface CustomInputProps {

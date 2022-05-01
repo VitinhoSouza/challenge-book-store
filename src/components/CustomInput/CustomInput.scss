@@ -36,7 +36,7 @@
 
         position: relative;
         left: 19rem;
-        bottom:2rem;
+        bottom:2.2rem;
         background: white;
 
         border-radius: 44px;
@@ -46,5 +46,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
+        &:hover{
+            filter: brightness(0.8);
+        }
     }
 }

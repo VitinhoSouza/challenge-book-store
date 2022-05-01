@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-bind */
 import { useState } from "react";
 import ModalBook from "../ModalBook/ModalBook";
 
@@ -64,7 +63,9 @@ export default function BookCard({
         <img src={imageUrl} alt="" className="photoBook" />
         <div className="info">
           <div className="header">
-            <span className="title">{title}</span>
+            <span className="title">
+              {title.length > 40 ? `${title.substr(0, 40)}...` : title}
+            </span>
             {authors.map((authorName: string) => (
               <span key={authorName} className="author">
                 {authorName}
