@@ -33,7 +33,7 @@ export const booksAPI = {
         await api.post('/auth/refresh-token',
             {"refreshToken":refreshToken},
             {headers:{
-                'Authorization':`${token}`,
+                'Authorization':`Bearer ${token}`,
                 'Refresh-token': `${refreshToken}`
             }})
             .then((res:any) => {
@@ -46,13 +46,10 @@ export const booksAPI = {
         return newUser;
     },
 
-    getBooks:async (token:string|null,refreshToken:string|null,query:string) =>{
+    getBooks:async (token:string|null,query:string) =>{
         let response:any = {};
         await api.get(`/books${query}`, { headers: { 
-                // 'access-control-allow-origin': '*',
-                // 'access-control-expose-headers': ' authorization, refresh-token',
-                'Authorization': `${token}`, 
-                'Refresh-token': `${refreshToken}`
+                'Authorization': `Bearer ${token}`
             }})
             .then((res:any) => {
                 response = res.data;
@@ -62,9 +59,9 @@ export const booksAPI = {
         return response;
     }, 
 
-    getOneBook:async (token:string|null,refreshToken:string|null,id:string) =>{
+    getOneBook:async (token:string|null,id:string) =>{
         let response:any = {};
-        await api.get(`/books/${id}`, { headers: { 'authorization': `${token}`}})
+        await api.get(`/books/${id}`, { headers: { 'authorization': `Bearer ${token}`}})
             .then((res:any) => {
                 response = res.data;
             }).catch((e:any) => {

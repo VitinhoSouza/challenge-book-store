@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import CustomInput from "../../components/CustomInput/CustomInput";
@@ -12,10 +12,6 @@ import "./Login.scss";
 export default function Login() {
   const { auth, setAuthLS } = useAuth();
   const navigate = useNavigate();
-
-  if (auth !== undefined && auth.token !== "null" && auth.token !== null) {
-    navigate("/books");
-  }
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,6 +27,12 @@ export default function Login() {
       navigate("/books");
     }
   }
+
+  useEffect(() => {
+    if (auth !== undefined && auth.token !== "null" && auth.token !== null) {
+      navigate("/books");
+    }
+  }, [auth]);
 
   return (
     <div className="pageLogin">

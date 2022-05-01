@@ -4,12 +4,12 @@ import quotesIcon from "../../assets/quotes.svg";
 import "./BookModal.scss";
 
 interface ModalBookProps {
-  //   id: string,
+  // id: string,
   title: string;
   description: string;
   authors: string[];
   pageCount: number;
-  //   category: string,
+  // category: string,
   imageUrl: string;
   isbn10: string;
   isbn13: string;

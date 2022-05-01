@@ -26,7 +26,6 @@ describe("Login Page", () => {
 
     const sendButton = getByText("Entrar");
 
-    // userEvent.click(sendButton);
     fireEvent(
       sendButton,
       new MouseEvent("click", {
@@ -51,7 +50,7 @@ describe("Login Page", () => {
 
     userEvent.type(inputEmail, "desafio@appnoz.com.br");
     userEvent.type(inputPassword, "12341234");
-    // userEvent.click(sendButton);
+
     fireEvent(
       sendButton,
       new MouseEvent("click", {

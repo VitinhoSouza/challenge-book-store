@@ -27,78 +27,12 @@ interface Book {
 }
 
 export default function Home() {
-  const arrayTest: Book[] = [];
-  arrayTest.push({
-    id: "8f41b92c7460b9337660427e",
-    title: "A Culpa é das Estrelas",
-    description:
-      "Hazel foi diagnosticada com câncer aos treze anos e agora, aos dezesseis, sobrevive graças a uma droga revolucionária que detém a metástase em seus pulmões. Ela sabe que sua doença é terminal e passa os dias vendo tevê e lendo Uma aflição imperial, livro cujo autor deixou muitas perguntas sem resposta. ",
-    authors: ["Jonh Green"],
-    pageCount: 288,
-    category: "Romance",
-    imageUrl: "https://d2drtqy2ezsot0.cloudfront.net/appnoz/Book-0.jpg",
-    isbn10: "0062856626",
-    isbn13: "978-0062856623",
-    language: "Inglês",
-    publisher: "Intrínseca",
-    published: 2002,
-  });
-  arrayTest.push({
-    id: "8f41b92c7460b9337660427e",
-    title: "A Culpa é das Estrelas",
-    description:
-      "Hazel foi diagnosticada com câncer aos treze anos e agora, aos dezesseis, sobrevive graças a uma droga revolucionária que detém a metástase em seus pulmões. Ela sabe que sua doença é terminal e passa os dias vendo tevê e lendo Uma aflição imperial, livro cujo autor deixou muitas perguntas sem resposta. ",
-    authors: ["Jonh Green"],
-    pageCount: 288,
-    category: "Romance",
-    imageUrl: "https://d2drtqy2ezsot0.cloudfront.net/appnoz/Book-0.jpg",
-    isbn10: "0062856626",
-    isbn13: "978-0062856623",
-    language: "Inglês",
-    publisher: "Intrínseca",
-    published: 2002,
-  });
-  arrayTest.push({
-    id: "8f41b92c7460b9337660427e",
-    title: "A Culpa é das Estrelas",
-    description:
-      "Hazel foi diagnosticada com câncer aos treze anos e agora, aos dezesseis, sobrevive graças a uma droga revolucionária que detém a metástase em seus pulmões. Ela sabe que sua doença é terminal e passa os dias vendo tevê e lendo Uma aflição imperial, livro cujo autor deixou muitas perguntas sem resposta. ",
-    authors: ["Jonh Green"],
-    pageCount: 288,
-    category: "Romance",
-    imageUrl: "https://d2drtqy2ezsot0.cloudfront.net/appnoz/Book-0.jpg",
-    isbn10: "0062856626",
-    isbn13: "978-0062856623",
-    language: "Inglês",
-    publisher: "Intrínseca",
-    published: 2002,
-  });
-  arrayTest.push({
-    id: "8f41b92c7460b9337660427e",
-    title: "A Culpa é das Estrelas",
-    description:
-      "Hazel foi diagnosticada com câncer aos treze anos e agora, aos dezesseis, sobrevive graças a uma droga revolucionária que detém a metástase em seus pulmões. Ela sabe que sua doença é terminal e passa os dias vendo tevê e lendo Uma aflição imperial, livro cujo autor deixou muitas perguntas sem resposta. ",
-    authors: ["Jonh Green"],
-    pageCount: 288,
-    category: "Romance",
-    imageUrl: "https://d2drtqy2ezsot0.cloudfront.net/appnoz/Book-0.jpg",
-    isbn10: "0062856626",
-    isbn13: "978-0062856623",
-    language: "Inglês",
-    publisher: "Intrínseca",
-    published: 2002,
-  });
-
-  const [books, setBooks] = useState<Book[]>(arrayTest);
+  const [books, setBooks] = useState<Book[]>([]);
   const [actualPage, setActualPage] = useState(1);
   const [totalPages, setTotalPages] = useState(10);
 
   const { auth, setAuthLS } = useAuth();
   const navigate = useNavigate();
-
-  if (auth !== undefined && (auth.token === "null" || auth.token === null)) {
-    navigate("/");
-  }
 
   function mountCards() {
     return books.map((book: Book) => (
@@ -125,33 +59,35 @@ export default function Home() {
   }
 
   async function tryGetBooks(numberPage = 1) {
-    setActualPage(numberPage);
     const res = await booksAPI.getBooks(
       auth?.token,
-      auth?.refreshToken,
       `?page=${numberPage}&amount=${12}`
     );
     if (res.data !== undefined) {
       setBooks(res.data);
       setActualPage(res.page);
-      setTotalPages(res.totalPages);
+      setTotalPages(Math.round(res.totalPages));
     }
   }
 
-  async function tryRefreshToken() {
-    let param = auth !== undefined ? "Y" : "N";
-    param = param === "Y" && auth.token !== null ? auth.token : "";
-    const param2 =
-      param === "Y" && auth.refreshToken !== null ? auth.refreshToken : "";
+  // async function tryRefreshToken() {
+  //   let param = auth !== undefined ? "Y" : "N";
+  //   param = param === "Y" && auth.token !== null ? auth.token : "";
+  //   const param2 =
+  //     param === "Y" && auth.refreshToken !== null ? auth.refreshToken : "";
 
-    const res = await booksAPI.refreshToken(param, param2);
-    console.log(res);
-  }
+  //   const res = await booksAPI.refreshToken(param, param2);
+  // }
 
   useEffect(() => {
-    tryRefreshToken();
     tryGetBooks();
   }, []);
+
+  useEffect(() => {
+    if (auth !== undefined && (auth.token === "null" || auth.token === null)) {
+      navigate("/");
+    }
+  }, [auth]);
 
   return (
     <div className="pageHome">
