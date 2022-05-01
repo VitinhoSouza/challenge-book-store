@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ModalBook from "../ModalBook/ModalBook";
+import ModalBook from "../BookModal/BookModal";
 
 import "./BookCard.scss";
 
@@ -60,9 +60,9 @@ export default function BookCard({
       )}
 
       <div className="bookCard" onClick={handleModal} title="bookCard">
-        <img src={imageUrl} alt="" className="photoBook" />
+        <img src={imageUrl} alt="book cover" className="photoBook" />
         <div className="info">
-          <div className="header">
+          <div className="header" title="bookCardHeader">
             <span className="title">
               {title.length > 40 ? `${title.substr(0, 40)}...` : title}
             </span>
@@ -73,7 +73,7 @@ export default function BookCard({
             ))}
           </div>
 
-          <div className="mainInfo">
+          <div className="mainInfo" title="bookCardInfo">
             <span>{pageCount} páginas</span>
             <span>Editora {publisher}</span>
             <span>Publicado em {published}</span>

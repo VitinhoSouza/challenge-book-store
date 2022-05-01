@@ -63,6 +63,7 @@ export default function Login() {
           />
           {wrongLogin && (
             <div className="wrongLogin" title="wrongLogin">
+              <div className="arrow"></div>
               Email e/ou senha incorretos.
             </div>
           )}

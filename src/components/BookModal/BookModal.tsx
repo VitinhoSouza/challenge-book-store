@@ -1,7 +1,7 @@
 import closeIcon from "../../assets/close.svg";
 import quotesIcon from "../../assets/quotes.svg";
 
-import "./ModalBook.scss";
+import "./BookModal.scss";
 
 interface ModalBookProps {
   //   id: string,
@@ -33,16 +33,24 @@ export default function ModalBook({
   toggleModal,
 }: ModalBookProps) {
   return (
-    <div className="overlay">
-      <div className="getout" onClick={toggleModal}>
-        <img src={closeIcon} alt="getout" />
+    <div className="overlay" title="overlayBookModal">
+      <div
+        className="getout"
+        onClick={toggleModal}
+        title="getoutButton-bookModal"
+      >
+        <img src={closeIcon} alt="getout button" />
       </div>
-      <div className="modal">
+      <div className="modal" title="bookModal">
         <div className="container">
-          <img src={imageUrl} alt="" className="photoBook" />
+          <img
+            src={imageUrl}
+            alt="book cover in the modal"
+            className="photoBook"
+          />
 
           <div className="info">
-            <div className="header">
+            <div className="header" title="cardHeader-bookModal">
               <span className="title">
                 {title.length > 40 ? `${title.substr(0, 40)}...` : title}
               </span>
@@ -53,7 +61,7 @@ export default function ModalBook({
               ))}
             </div>
 
-            <div className="mainInfo">
+            <div className="mainInfo" title="cardInfo-bookModal">
               <span id="titleInfo">INFORMAÇÕES</span>
               <div className="pair">
                 <span className="title">Páginas</span>
@@ -87,7 +95,7 @@ export default function ModalBook({
               </div>
             </div>
 
-            <div className="description">
+            <div className="description" title="cardDescription-bookModal">
               <span id="titleInfo">RESENHA DA EDITORA</span>
               <span className="text">
                 <img src={quotesIcon} alt="" />

@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Login from "./Login";
 
@@ -19,7 +19,15 @@ describe("Login Page", () => {
 
     const sendButton = getByText("Entrar");
 
-    userEvent.click(sendButton);
+    // userEvent.click(sendButton);
+    fireEvent(
+      sendButton,
+      new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+      })
+    );
+
     expect(await findByTitle("wrongLogin")).toBeInTheDocument();
   });
 
@@ -32,7 +40,14 @@ describe("Login Page", () => {
 
     userEvent.type(inputEmail, "desafio@appnoz.com.br");
     userEvent.type(inputPassword, "12341234");
-    userEvent.click(sendButton);
+    // userEvent.click(sendButton);
+    fireEvent(
+      sendButton,
+      new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+      })
+    );
 
     expect(queryByTitle("wrongLogin")).not.toBeInTheDocument();
   });

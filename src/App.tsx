@@ -16,6 +16,15 @@ function App() {
           <Route path="/books" element={<Home />} />
 
           <Route path="/login" element={<Login />} />
+
+          <Route
+            path="*"
+            element={
+              <h1 style={{ padding: "1rem" }}>
+                <p>Página não encontrada!</p>
+              </h1>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

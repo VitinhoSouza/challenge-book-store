@@ -1,9 +1,4 @@
-import {
-  queryByRole,
-  queryByText,
-  render,
-  waitFor,
-} from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Home from "./Home";
 
@@ -58,19 +53,55 @@ describe("Login Page", () => {
     expect(await findByText("1")).toBeInTheDocument();
   });
 
-  //Verificar se os elementos do BookCard estão em tela
+  it("Check if you have a BookCard and if its elements are on screen", () => {
+    const { getAllByTitle, getAllByAltText } = render(<Home />);
 
-  //   it("Opening a book modal", async () => {
-  //     const { getByTitle, getByText, findByText } = render(<Home />);
+    expect(getAllByTitle("bookCard")[0]).toBeInTheDocument();
+    expect(getAllByAltText("book cover")[0]).toBeInTheDocument();
+    expect(getAllByTitle("bookCardHeader")[0]).toBeInTheDocument();
+    expect(getAllByTitle("bookCardInfo")[0]).toBeInTheDocument();
+  });
 
-  //     const bookCard = getByTitle("bookCard");
+  it("Opening modal, seeing its elements on the screen and closing it", async () => {
+    const {
+      getAllByTitle,
+      findByTitle,
+      findByAltText,
+      queryByTitle,
+      queryByAltText,
+    } = render(<Home />);
 
-  //     userEvent.click(bookCard);
+    const bookCard = getAllByTitle("bookCard")[0];
+    userEvent.click(bookCard);
 
-  //     expect(await findByText("1")).toBeInTheDocument();
-  //   });
+    const getoutButton = await findByTitle("getoutButton-bookModal");
 
-  //Verificar se os elementos do BookModal estão em tela
+    expect(await findByTitle("overlayBookModal")).toBeInTheDocument();
+    expect(getoutButton).toBeInTheDocument();
+    expect(await findByTitle("bookModal")).toBeInTheDocument();
+    expect(await findByAltText("book cover in the modal")).toBeInTheDocument();
+    expect(await findByTitle("cardHeader-bookModal")).toBeInTheDocument();
+    expect(await findByTitle("cardInfo-bookModal")).toBeInTheDocument();
+    expect(await findByTitle("cardDescription-bookModal")).toBeInTheDocument();
 
-  //Testar fechamento do BookModal
+    fireEvent(
+      getoutButton,
+      new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+      })
+    );
+
+    expect(await queryByTitle("overlayBookModal")).not.toBeInTheDocument();
+    expect(await getoutButton).not.toBeInTheDocument();
+    expect(await queryByTitle("bookModal"));
+    expect(
+      await queryByAltText("book cover in the modal")
+    ).not.toBeInTheDocument();
+    expect(await queryByTitle("cardHeader-bookModal")).not.toBeInTheDocument();
+    expect(await queryByTitle("cardInfo-bookModal")).not.toBeInTheDocument();
+    expect(
+      await queryByTitle("cardDescription-bookModal")
+    ).not.toBeInTheDocument();
+  });
 });

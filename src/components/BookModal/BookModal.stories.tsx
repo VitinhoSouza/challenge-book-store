@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import ModalBook from "./ModalBook";
+import ModalBook from "./BookModal";
 
 export default {
   title: "ModalBook Component",
