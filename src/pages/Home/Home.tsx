@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import BookCard from "../../components/BookCard/BookCard";
 import { booksAPI } from "../../services/booksAPI";
 import { useAuth } from "../../hooks/useAuth";
-import history from "../../history";
 
 import logoutIcon from "../../assets/logout.svg";
 import logoIcon from "../../assets/noz_black.svg";
@@ -94,10 +94,10 @@ export default function Home() {
   const [totalPages, setTotalPages] = useState(10);
 
   const { auth, setAuthLS } = useAuth();
+  const navigate = useNavigate();
 
   if (auth !== undefined && (auth.token === "null" || auth.token === null)) {
-    history.push("/login");
-    window.location.reload();
+    navigate("/");
   }
 
   function mountCards() {
@@ -138,7 +138,17 @@ export default function Home() {
     }
   }
 
+  async function tryRefreshToken() {
+    let request = auth !== undefined ? "Y" : "N";
+
+    request = request === "Y" && auth.token !== null ? auth.token : "";
+
+    const res = await booksAPI.refreshToken(request, auth.refreshToken);
+    console.log(res);
+  }
+
   useEffect(() => {
+    tryRefreshToken();
     tryGetBooks();
   }, []);
 

@@ -1,4 +1,6 @@
 import { useState } from "react";
+// import { useAuth } from "../../hooks/useAuth";
+// import { booksAPI } from "../../services/booksAPI";
 import ModalBook from "../BookModal/BookModal";
 
 import "./BookCard.scss";
@@ -34,9 +36,18 @@ export default function BookCard({
 }: Book) {
   const [modalBookIsOn, setModalBookIsOn] = useState(false);
 
+  // const { auth } = useAuth();
+
   function handleModal() {
     setModalBookIsOn(!modalBookIsOn);
   }
+
+  // async function tryGetOneBook() {
+  //   const res = await booksAPI.getBooks(auth?.token, auth?.refreshToken, id);
+  //   if (res.data !== undefined) {
+  //     //Create a state for Book here and update for pas by props for BookModal
+  //   }
+  // }
 
   return (
     <>

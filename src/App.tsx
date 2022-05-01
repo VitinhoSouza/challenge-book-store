@@ -11,11 +11,9 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
-
           <Route path="/books" element={<Home />} />
 
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
 
           <Route
             path="*"

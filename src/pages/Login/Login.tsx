@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { booksAPI } from "../../services/booksAPI";
 import { useAuth } from "../../hooks/useAuth";
-import history from "../../history";
 
 import logoIcon from "../../assets/noz.svg";
 
@@ -11,10 +11,10 @@ import "./Login.scss";
 
 export default function Login() {
   const { auth, setAuthLS } = useAuth();
+  const navigate = useNavigate();
 
   if (auth !== undefined && auth.token !== "null" && auth.token !== null) {
-    history.push("/books");
-    window.location.reload();
+    navigate("/books");
   }
 
   const [email, setEmail] = useState("");
@@ -28,19 +28,8 @@ export default function Login() {
     } else {
       setWrongLogin(false);
       setAuthLS(res);
-      history.push("/books");
-      window.location.reload();
+      navigate("/books");
     }
-  }
-
-  async function tryRefreshToken() {
-    let request = auth !== undefined ? "Y" : "N";
-
-    request = request === "Y" && auth.token !== null ? auth.token : "";
-
-    const res = await booksAPI.refreshToken(request);
-    console.log(res);
-    // history.push("/");
   }
 
   return (
@@ -58,7 +47,6 @@ export default function Login() {
             handlePassword={setPassword}
             tryLogin={() => {
               tryLogin();
-              tryRefreshToken();
             }}
           />
           {wrongLogin && (

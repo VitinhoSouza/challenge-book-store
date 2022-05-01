@@ -25,12 +25,17 @@ export const booksAPI = {
         return newUser;
     },
 
-    refreshToken: async (token:string) => {
+    refreshToken: async (token:string,refreshToken:string|null) => {
         const newUser:any = {
             token:'invalid'
         };
 
-        await api.post('/auth/refresh-token',{},{headers:{'authorization':token}})
+        await api.post('/auth/refresh-token',
+            {"refreshToken":refreshToken},
+            {headers:{
+                'Authorization':` ${token}`,
+                'Refresh-token': ` ${refreshToken}`
+            }})
             .then((res:any) => {
                 newUser.name = res.data.name;
                 newUser.token = res.headers.authorization;
@@ -43,15 +48,30 @@ export const booksAPI = {
 
     getBooks:async (token:string|null,refreshToken:string|null,query:string) =>{
         let response:any = {};
-        await api.get(`/books${query}`, { headers: { 'authorization': `${token}`, 'refresh-token': `${refreshToken}`}})
+        await api.get(`/books${query}`, { headers: { 
+                // 'access-control-allow-origin': '*',
+                // 'access-control-expose-headers': ' authorization, refresh-token',
+                'Authorization': ` ${token}`, 
+                'Refresh-token': ` ${refreshToken}`
+            }})
             .then((res:any) => {
                 response = res.data;
-                // console.log(res);
             }).catch((e:any) => {
                 console.log(e);
             })
         return response;
-    }
+    }, 
+
+    getOneBook:async (token:string|null,refreshToken:string|null,id:string) =>{
+        let response:any = {};
+        await api.get(`/books/${id}`, { headers: { 'authorization': `${token}`}})
+            .then((res:any) => {
+                response = res.data;
+            }).catch((e:any) => {
+                console.log(e);
+            })
+        return response;
+    }, 
 
 }
 
