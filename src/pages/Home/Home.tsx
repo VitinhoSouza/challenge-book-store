@@ -90,8 +90,8 @@ export default function Home() {
   });
 
   const [books, setBooks] = useState<Book[]>(arrayTest);
-  const [actualPage, setActualPage] = useState(100);
-  const [totalPages, setTotalPages] = useState(100);
+  const [actualPage, setActualPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(10);
 
   const { auth, setAuthLS } = useAuth();
 
@@ -125,6 +125,7 @@ export default function Home() {
   }
 
   async function tryGetBooks(numberPage = 1) {
+    setActualPage(numberPage);
     const res = await booksAPI.getBooks(
       auth?.token,
       auth?.refreshToken,
@@ -145,7 +146,7 @@ export default function Home() {
     <div className="pageHome">
       <div className="container">
         <header>
-          <div className="title">
+          <div className="title" title="appLogo">
             <img src={logoIcon} alt="NOZ" />
             <span>Books</span>
           </div>
@@ -154,41 +155,52 @@ export default function Home() {
               Bem vindo
               <span> {auth !== undefined ? `, ${auth.name}` : ""}!</span>
             </div>
-            <div className="buttonLogout" onClick={tryLogout}>
+            <button
+              type="button"
+              className="buttonLogout"
+              onClick={tryLogout}
+              title="logoutButton"
+            >
               <img src={logoutIcon} alt="logout" />
-            </div>
+            </button>
           </div>
         </header>
 
         <div className="content">{mountCards()}</div>
 
-        <div className="turnPage">
+        <div className="turnPage" title="pagination">
           <div className="text">
             Página
-            <span> {actualPage} </span>
+            <span title="actualPage"> {actualPage} </span>
             de
-            <span> {totalPages}</span>
+            <span title="totalPages"> {totalPages}</span>
           </div>
-          <i
+          <button
+            type="button"
+            disabled={actualPage === 1}
             className={
               actualPage === 1
                 ? "previewArrow-container disabled"
                 : "previewArrow-container"
             }
             onClick={() => tryGetBooks(actualPage - 1)}
+            title="previewArrow"
           >
             <img src={arrowIcon} alt="preview" className="previewArrow" />
-          </i>
-          <i
+          </button>
+          <button
+            type="button"
+            disabled={actualPage >= totalPages && true}
             className={
-              actualPage === totalPages
+              actualPage >= totalPages
                 ? "nextArrow-container disabled"
                 : "nextArrow-container"
             }
             onClick={() => tryGetBooks(actualPage + 1)}
+            title="nextArrow"
           >
             <img src={arrowIcon} alt="next" className="nextArrow" />
-          </i>
+          </button>
         </div>
       </div>
     </div>

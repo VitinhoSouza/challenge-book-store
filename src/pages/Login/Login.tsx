@@ -34,9 +34,11 @@ export default function Login() {
   }
 
   async function tryRefreshToken() {
-    const res = await booksAPI.refreshToken(
-      auth.token !== null ? auth.token : ""
-    );
+    let request = auth !== undefined ? "Y" : "N";
+
+    request = request === "Y" && auth.token !== null ? auth.token : "";
+
+    const res = await booksAPI.refreshToken(request);
     console.log(res);
     // history.push("/");
   }
@@ -60,7 +62,9 @@ export default function Login() {
             }}
           />
           {wrongLogin && (
-            <div className="wrongLogin">Email e/ou senha incorretos.</div>
+            <div className="wrongLogin" title="wrongLogin">
+              Email e/ou senha incorretos.
+            </div>
           )}
         </div>
       </div>

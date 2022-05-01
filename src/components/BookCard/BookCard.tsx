@@ -59,7 +59,7 @@ export default function BookCard({
         />
       )}
 
-      <div className="bookCard" onClick={handleModal}>
+      <div className="bookCard" onClick={handleModal} title="bookCard">
         <img src={imageUrl} alt="" className="photoBook" />
         <div className="info">
           <div className="header">
