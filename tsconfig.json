@@ -6,9 +6,10 @@
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
+    "useDefineForClassFields": true, //
+    "allowJs": false, //
+    "skipLibCheck": false, //
+    "esModuleInterop": false, //
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -22,5 +23,6 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  // "references": [{ "path": "./tsconfig.node.json" }]
 }

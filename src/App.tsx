@@ -1,6 +1,4 @@
-// import {Routes} from 'react-router';
-import { Route, Router } from "react-router-dom";
-import history from "./history";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
@@ -11,13 +9,15 @@ import "./App.scss";
 function App() {
   return (
     <AuthProvider>
-      <Router history={history}>
-        <Route exact path="/" component={Login} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
 
-        <Route path="/books" component={Home} />
+          <Route path="/books" element={<Home />} />
 
-        <Route path="/login" component={Login} />
-      </Router>
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
     </AuthProvider>
   );
 }

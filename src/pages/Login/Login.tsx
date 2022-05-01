@@ -3,7 +3,7 @@ import { useState } from "react";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { booksAPI } from "../../services/booksAPI";
 import { useAuth } from "../../hooks/useAuth";
-// import history from "../../history";
+import history from "../../history";
 
 import logoIcon from "../../assets/noz.svg";
 
@@ -12,9 +12,9 @@ import "./Login.scss";
 export default function Login() {
   const { auth, setAuthLS } = useAuth();
 
-  if (auth.token !== "null" && auth.token !== null) {
-    // history.push("/books");
-    window.location.replace("http://localhost:3000/books");
+  if (auth !== undefined && auth.token !== "null" && auth.token !== null) {
+    history.push("/books");
+    window.location.reload();
   }
 
   const [email, setEmail] = useState("");
@@ -28,8 +28,8 @@ export default function Login() {
     } else {
       setWrongLogin(false);
       setAuthLS(res);
-      // history.push("/books");
-      window.location.replace("http://localhost:3000/books");
+      history.push("/books");
+      window.location.reload();
     }
   }
 

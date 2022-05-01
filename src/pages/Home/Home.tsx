@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import BookCard from "../../components/BookCard/BookCard";
 import { booksAPI } from "../../services/booksAPI";
 import { useAuth } from "../../hooks/useAuth";
-// import history from "../../history";
+import history from "../../history";
 
 import logoutIcon from "../../assets/logout.svg";
 import logoIcon from "../../assets/noz_black.svg";
@@ -95,9 +95,9 @@ export default function Home() {
 
   const { auth, setAuthLS } = useAuth();
 
-  if (auth.token === "null" || auth.token === null) {
-    // history.push("/login");
-    window.location.replace("http://localhost:3000/login");
+  if (auth !== undefined && (auth.token === "null" || auth.token === null)) {
+    history.push("/login");
+    window.location.reload();
   }
 
   function mountCards() {
@@ -126,8 +126,8 @@ export default function Home() {
 
   async function tryGetBooks(numberPage = 1) {
     const res = await booksAPI.getBooks(
-      auth.token,
-      auth.refreshToken,
+      auth?.token,
+      auth?.refreshToken,
       `?page=${numberPage}&amount=${12}`
     );
     if (res.data !== undefined) {
@@ -151,8 +151,8 @@ export default function Home() {
           </div>
           <div className="userWithLogout">
             <div className="user">
-              Bem vindo,
-              <span> {auth.name}!</span>
+              Bem vindo
+              <span> {auth !== undefined ? `, ${auth.name}` : ""}!</span>
             </div>
             <div className="buttonLogout" onClick={tryLogout}>
               <img src={logoutIcon} alt="logout" />
