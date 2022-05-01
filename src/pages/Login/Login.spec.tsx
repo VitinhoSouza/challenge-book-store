@@ -1,11 +1,14 @@
 import { fireEvent, render } from "@testing-library/react";
+import { BrowserRouter as Router } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import Login from "./Login";
 
 describe("Login Page", () => {
   it("There must be the fields required to login", () => {
     const { getByPlaceholderText, queryByText, queryByTitle } = render(
-      <Login />
+      <Router>
+        <Login />
+      </Router>
     );
 
     expect(getByPlaceholderText("Digite seu email")).toBeInTheDocument();
@@ -15,7 +18,11 @@ describe("Login Page", () => {
   });
 
   it("Login with wrong data", async () => {
-    const { getByText, findByTitle } = render(<Login />);
+    const { getByText, findByTitle } = render(
+      <Router>
+        <Login />
+      </Router>
+    );
 
     const sendButton = getByText("Entrar");
 
@@ -32,7 +39,11 @@ describe("Login Page", () => {
   });
 
   it("Login with correct data", () => {
-    const { getByText, queryByTitle, getByPlaceholderText } = render(<Login />);
+    const { getByText, queryByTitle, getByPlaceholderText } = render(
+      <Router>
+        <Login />
+      </Router>
+    );
 
     const inputEmail = getByPlaceholderText("Digite seu email");
     const inputPassword = getByPlaceholderText("Digite sua senha");

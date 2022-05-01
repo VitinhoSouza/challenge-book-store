@@ -1,10 +1,15 @@
 import { fireEvent, render } from "@testing-library/react";
+import { BrowserRouter as Router } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import Home from "./Home";
 
 describe("Login Page", () => {
   it("The main elements are on canvas", () => {
-    const { getByTitle } = render(<Home />);
+    const { getByTitle } = render(
+      <Router>
+        <Home />
+      </Router>
+    );
 
     expect(getByTitle("appLogo")).toBeInTheDocument();
     expect(getByTitle("logoutButton")).toBeInTheDocument();
@@ -25,7 +30,11 @@ describe("Login Page", () => {
   //   });
 
   it("Go to next page", async () => {
-    const { getByTitle, getByText, findByText } = render(<Home />);
+    const { getByTitle, getByText, findByText } = render(
+      <Router>
+        <Home />
+      </Router>
+    );
 
     const nextPageButton = getByTitle("nextArrow");
 
@@ -37,7 +46,11 @@ describe("Login Page", () => {
   });
 
   it("Go to next page and back", async () => {
-    const { getByTitle, getByText, findByText } = render(<Home />);
+    const { getByTitle, getByText, findByText } = render(
+      <Router>
+        <Home />
+      </Router>
+    );
 
     const nextPageButton = getByTitle("nextArrow");
     const previewPageButton = getByTitle("previewArrow");
@@ -54,7 +67,11 @@ describe("Login Page", () => {
   });
 
   it("Check if you have a BookCard and if its elements are on screen", () => {
-    const { getAllByTitle, getAllByAltText } = render(<Home />);
+    const { getAllByTitle, getAllByAltText } = render(
+      <Router>
+        <Home />
+      </Router>
+    );
 
     expect(getAllByTitle("bookCard")[0]).toBeInTheDocument();
     expect(getAllByAltText("book cover")[0]).toBeInTheDocument();
@@ -69,7 +86,11 @@ describe("Login Page", () => {
       findByAltText,
       queryByTitle,
       queryByAltText,
-    } = render(<Home />);
+    } = render(
+      <Router>
+        <Home />
+      </Router>
+    );
 
     const bookCard = getAllByTitle("bookCard")[0];
     userEvent.click(bookCard);

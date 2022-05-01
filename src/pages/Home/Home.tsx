@@ -139,11 +139,12 @@ export default function Home() {
   }
 
   async function tryRefreshToken() {
-    let request = auth !== undefined ? "Y" : "N";
+    let param = auth !== undefined ? "Y" : "N";
+    param = param === "Y" && auth.token !== null ? auth.token : "";
+    const param2 =
+      param === "Y" && auth.refreshToken !== null ? auth.refreshToken : "";
 
-    request = request === "Y" && auth.token !== null ? auth.token : "";
-
-    const res = await booksAPI.refreshToken(request, auth.refreshToken);
+    const res = await booksAPI.refreshToken(param, param2);
     console.log(res);
   }
 

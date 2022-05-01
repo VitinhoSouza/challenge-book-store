@@ -33,8 +33,8 @@ export const booksAPI = {
         await api.post('/auth/refresh-token',
             {"refreshToken":refreshToken},
             {headers:{
-                'Authorization':` ${token}`,
-                'Refresh-token': ` ${refreshToken}`
+                'Authorization':`${token}`,
+                'Refresh-token': `${refreshToken}`
             }})
             .then((res:any) => {
                 newUser.name = res.data.name;
@@ -51,8 +51,8 @@ export const booksAPI = {
         await api.get(`/books${query}`, { headers: { 
                 // 'access-control-allow-origin': '*',
                 // 'access-control-expose-headers': ' authorization, refresh-token',
-                'Authorization': ` ${token}`, 
-                'Refresh-token': ` ${refreshToken}`
+                'Authorization': `${token}`, 
+                'Refresh-token': `${refreshToken}`
             }})
             .then((res:any) => {
                 response = res.data;
