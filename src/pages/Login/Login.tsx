@@ -43,16 +43,16 @@ export default function Login() {
         </div>
 
         <div className="formLogin">
-          <CustomInput type="email" handleEmail={setEmail} />
+          <CustomInput type="email" handleField={setEmail} />
           <CustomInput
             type="password"
-            handlePassword={setPassword}
+            handleField={setPassword}
             tryLogin={() => {
               tryLogin();
             }}
           />
           {wrongLogin && (
-            <div className="wrongLogin" title="wrongLogin">
+            <div className="wrongLogin" data-testid="wrongLogin">
               <div className="arrow"></div>
               Email e/ou senha incorretos.
             </div>

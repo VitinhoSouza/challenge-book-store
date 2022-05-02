@@ -39,7 +39,6 @@ export default function Home() {
       <BookCard
         id={book.id}
         authors={book.authors}
-        // category={book.category}
         description={book.description}
         imageUrl={book.imageUrl}
         isbn10={book.isbn10}
@@ -69,15 +68,6 @@ export default function Home() {
       setTotalPages(Math.round(res.totalPages));
     }
   }
-
-  // async function tryRefreshToken() {
-  //   let param = auth !== undefined ? "Y" : "N";
-  //   param = param === "Y" && auth.token !== null ? auth.token : "";
-  //   const param2 =
-  //     param === "Y" && auth.refreshToken !== null ? auth.refreshToken : "";
-
-  //   const res = await booksAPI.refreshToken(param, param2);
-  // }
 
   useEffect(() => {
     tryGetBooks();
@@ -118,7 +108,10 @@ export default function Home() {
         <div className="turnPage" title="pagination">
           <div className="text">
             Página
-            <span title="actualPage"> {actualPage} </span>
+            <span title="actualPage" data-testid="actualPage">
+              {" "}
+              {actualPage}{" "}
+            </span>
             de
             <span title="totalPages"> {totalPages}</span>
           </div>
@@ -144,7 +137,7 @@ export default function Home() {
                 : "nextArrow-container"
             }
             onClick={() => tryGetBooks(actualPage + 1)}
-            title="nextArrow"
+            data-testid="nextArrow"
           >
             <img src={arrowIcon} alt="next" className="nextArrow" />
           </button>

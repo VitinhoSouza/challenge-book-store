@@ -4,12 +4,10 @@ import quotesIcon from "../../assets/quotes.svg";
 import "./BookModal.scss";
 
 interface ModalBookProps {
-  // id: string,
   title: string;
   description: string;
   authors: string[];
   pageCount: number;
-  // category: string,
   imageUrl: string;
   isbn10: string;
   isbn13: string;
@@ -33,35 +31,40 @@ export default function ModalBook({
   toggleModal,
 }: ModalBookProps) {
   return (
-    <div className="overlay" title="overlayBookModal">
+    <div className="overlay" data-testid="overlayBookModal">
       <div
         className="getout"
         onClick={toggleModal}
-        title="getoutButton-bookModal"
+        data-testid="getoutButton-bookModal"
       >
         <img src={closeIcon} alt="getout button" />
       </div>
-      <div className="modal" title="bookModal">
+      <div className="modal" data-testid="bookModal">
         <div className="container">
           <img
             src={imageUrl}
             alt="book cover in the modal"
             className="photoBook"
+            data-testid="bookCoverModal"
           />
 
           <div className="info">
-            <div className="header" title="cardHeader-bookModal">
+            <div className="header" data-testid="cardHeader-bookModal">
               <span className="title">
                 {title.length > 40 ? `${title.substr(0, 40)}...` : title}
               </span>
               {authors.map((authorName: string) => (
-                <span key={authorName} className="author">
+                <span
+                  key={authorName}
+                  className="author"
+                  data-testid="authorCardHeader-bookModal"
+                >
                   {authorName}
                 </span>
               ))}
             </div>
 
-            <div className="mainInfo" title="cardInfo-bookModal">
+            <div className="mainInfo" data-testid="cardInfo-bookModal">
               <span id="titleInfo">INFORMAÇÕES</span>
               <div className="pair">
                 <span className="title">Páginas</span>
@@ -95,7 +98,10 @@ export default function ModalBook({
               </div>
             </div>
 
-            <div className="description" title="cardDescription-bookModal">
+            <div
+              className="description"
+              data-testid="cardDescription-bookModal"
+            >
               <span id="titleInfo">RESENHA DA EDITORA</span>
               <span className="text">
                 <img src={quotesIcon} alt="" />

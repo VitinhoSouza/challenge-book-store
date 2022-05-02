@@ -5,8 +5,7 @@ import "./CustomInput.scss";
 interface CustomInputProps {
   type: "email" | "password";
   tryLogin?: () => void;
-  handleEmail?: (email: string) => void;
-  handlePassword?: (password: string) => void;
+  handleField: (field: string) => void;
 }
 
 function inputEmail(handleEmail: ((email: string) => void) | undefined) {
@@ -16,6 +15,7 @@ function inputEmail(handleEmail: ((email: string) => void) | undefined) {
       {handleEmail !== undefined && (
         <input
           type="email"
+          data-testid="customInputEmail"
           placeholder="Digite seu email"
           onChange={(e) => handleEmail(e.target.value)}
         />
@@ -34,12 +34,17 @@ function inputPassword(
       {handlePassword !== undefined && (
         <input
           type="password"
+          data-testid="customInputPassword"
           placeholder="Digite sua senha"
           onChange={(e) => handlePassword(e.target.value)}
         />
       )}
       {tryLogin !== undefined && (
-        <div className="buttonSend" onClick={tryLogin}>
+        <div
+          className="buttonSend"
+          onClick={tryLogin}
+          data-testid="customInputButtonSend"
+        >
           Entrar
         </div>
       )}
@@ -49,15 +54,14 @@ function inputPassword(
 
 export default function CustomInput({
   type,
-  handleEmail,
-  handlePassword,
+  handleField,
   tryLogin,
 }: CustomInputProps) {
   switch (type) {
     case "email":
-      return inputEmail(handleEmail);
+      return inputEmail(handleField);
     case "password":
-      return inputPassword(handlePassword, tryLogin);
+      return inputPassword(handleField, tryLogin);
     default:
       return <>ErrorType</>;
   }

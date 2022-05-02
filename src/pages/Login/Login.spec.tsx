@@ -1,64 +1,108 @@
-import { fireEvent, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import Login from "./Login";
 
 describe("Login Page", () => {
   it("There must be the fields required to login", () => {
-    const { getByPlaceholderText, queryByText, queryByTitle } = render(
+    const { getByTestId, queryByTestId } = render(
       <Router>
         <Login />
       </Router>
     );
 
-    expect(getByPlaceholderText("Digite seu email")).toBeInTheDocument();
-    expect(getByPlaceholderText("Digite sua senha")).toBeInTheDocument();
-    expect(queryByText("Entrar")).toBeInTheDocument();
-    expect(queryByTitle("wrongLogin")).not.toBeInTheDocument();
+    expect(getByTestId("customInputEmail")).toBeInTheDocument();
+    expect(getByTestId("customInputPassword")).toBeInTheDocument();
+    expect(getByTestId("customInputButtonSend")).toBeInTheDocument();
+    expect(queryByTestId("wrongLogin")).not.toBeInTheDocument();
   });
 
-  it("Login with wrong data", async () => {
-    const { getByText, findByTitle } = render(
+  it("Attempt to login without filling any fields", async () => {
+    const { getByTestId, findByTestId } = render(
       <Router>
         <Login />
       </Router>
     );
 
-    const sendButton = getByText("Entrar");
+    const sendButton = getByTestId("customInputButtonSend");
 
-    fireEvent(
-      sendButton,
-      new MouseEvent("click", {
-        bubbles: true,
-        cancelable: true,
-      })
+    userEvent.click(sendButton);
+
+    expect(await findByTestId("wrongLogin")).toBeInTheDocument();
+  });
+
+  it("Try logging in by filling in the two wrong fields", async () => {
+    const { getByTestId, findByTestId } = render(
+      <Router>
+        <Login />
+      </Router>
     );
 
-    expect(await findByTitle("wrongLogin")).toBeInTheDocument();
+    const inputEmail = getByTestId("customInputEmail");
+    const inputPassword = getByTestId("customInputPassword");
+    const sendButton = getByTestId("customInputButtonSend");
+
+    userEvent.type(inputEmail, "user@teste.com.br");
+    userEvent.type(inputPassword, "xxxxxxxx");
+
+    userEvent.click(sendButton);
+
+    expect(await findByTestId("wrongLogin")).toBeInTheDocument();
+  });
+
+  it("Try logging in by filling in the wrong email", async () => {
+    const { getByTestId, findByTestId } = render(
+      <Router>
+        <Login />
+      </Router>
+    );
+
+    const inputEmail = getByTestId("customInputEmail");
+    const inputPassword = getByTestId("customInputPassword");
+    const sendButton = getByTestId("customInputButtonSend");
+
+    userEvent.type(inputEmail, "user@teste.com.br");
+    userEvent.type(inputPassword, "12341234");
+
+    userEvent.click(sendButton);
+
+    expect(await findByTestId("wrongLogin")).toBeInTheDocument();
+  });
+
+  it("Try logging in by filling in the wrong password", async () => {
+    const { getByTestId, findByTestId } = render(
+      <Router>
+        <Login />
+      </Router>
+    );
+
+    const inputEmail = getByTestId("customInputEmail");
+    const inputPassword = getByTestId("customInputPassword");
+    const sendButton = getByTestId("customInputButtonSend");
+
+    userEvent.type(inputEmail, "desafio@appnoz.com.br");
+    userEvent.type(inputPassword, "xxxxxx");
+
+    userEvent.click(sendButton);
+
+    expect(await findByTestId("wrongLogin")).toBeInTheDocument();
   });
 
   it("Login with correct data", () => {
-    const { getByText, queryByTitle, getByPlaceholderText } = render(
+    const { getByTestId, queryByTestId } = render(
       <Router>
         <Login />
       </Router>
     );
 
-    const inputEmail = getByPlaceholderText("Digite seu email");
-    const inputPassword = getByPlaceholderText("Digite sua senha");
-    const sendButton = getByText("Entrar");
+    const inputEmail = getByTestId("customInputEmail");
+    const inputPassword = getByTestId("customInputPassword");
+    const sendButton = getByTestId("customInputButtonSend");
 
     userEvent.type(inputEmail, "desafio@appnoz.com.br");
     userEvent.type(inputPassword, "12341234");
 
-    fireEvent(
-      sendButton,
-      new MouseEvent("click", {
-        bubbles: true,
-        cancelable: true,
-      })
-    );
-
-    expect(queryByTitle("wrongLogin")).not.toBeInTheDocument();
+    userEvent.click(sendButton);
+    expect(queryByTestId("wrongLogin")).not.toBeInTheDocument();
   });
 });

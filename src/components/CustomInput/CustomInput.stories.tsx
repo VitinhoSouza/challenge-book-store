@@ -7,14 +7,14 @@ export default {
 } as ComponentMeta<typeof CustomInput>;
 
 const Primary: ComponentStory<typeof CustomInput> = () => (
-  <CustomInput type="email" handleEmail={console.log} />
+  <CustomInput type="email" handleField={console.log} />
 );
 
 const Secondary: ComponentStory<typeof CustomInput> = () => (
   <CustomInput
     type="password"
     tryLogin={console.log}
-    handlePassword={console.log}
+    handleField={console.log}
   />
 );
 

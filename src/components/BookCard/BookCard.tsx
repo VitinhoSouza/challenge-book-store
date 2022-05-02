@@ -11,7 +11,6 @@ interface Book {
   description: string;
   authors: string[];
   pageCount: number;
-  // category?: string;
   imageUrl: string;
   isbn10: string;
   isbn13: string;
@@ -27,7 +26,6 @@ export default function BookCard({
   pageCount,
   publisher,
   published,
-  // category,
   description,
   id,
   isbn10,
@@ -68,9 +66,7 @@ export default function BookCard({
     <>
       {modalBookIsOn && (
         <ModalBook
-          // id={id}
           authors={book.authors}
-          // category={book.category}
           description={book.description}
           imageUrl={book.imageUrl}
           isbn10={book.isbn10}
@@ -85,15 +81,24 @@ export default function BookCard({
         />
       )}
 
-      <div className="bookCard" onClick={tryGetOneBook} title="bookCard">
-        <img src={imageUrl} alt="book cover" className="photoBook" />
+      <div className="bookCard" onClick={tryGetOneBook} data-testid="bookCard">
+        <img
+          src={imageUrl}
+          alt="book cover"
+          className="photoBook"
+          data-testid="bookCardCover"
+        />
         <div className="info">
-          <div className="header" title="bookCardHeader">
-            <span className="title">
+          <div className="header" data-testid="bookCardHeader">
+            <span className="title" data-testid="bookCardTitle">
               {title.length > 25 ? `${title.substr(0, 25)}...` : title}
             </span>
             {authorsTreated.map((authorName: string) => (
-              <span key={authorName} className="author">
+              <span
+                key={authorName}
+                className="author"
+                data-testid="bookCardAuthor"
+              >
                 {authorName}
                 {authors.length > 2 && authorName === authorsTreated[1]
                   ? "..."
@@ -102,7 +107,7 @@ export default function BookCard({
             ))}
           </div>
 
-          <div className="mainInfo" title="bookCardInfo">
+          <div className="mainInfo" data-testid="bookCardInfo">
             <span>{pageCount} páginas</span>
             <span>
               Editora{" "}
