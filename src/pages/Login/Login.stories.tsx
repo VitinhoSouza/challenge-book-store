@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { BrowserRouter as Router } from "react-router-dom";
 import Login from "./Login";
 
 export default {
@@ -6,6 +7,10 @@ export default {
   components: Login,
 } as ComponentMeta<typeof Login>;
 
-const Template: ComponentStory<typeof Login> = () => <Login />;
+const Template: ComponentStory<typeof Login> = () => (
+  <Router>
+    <Login />
+  </Router>
+);
 
 export const Primary = Template.bind({});
