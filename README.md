@@ -2,7 +2,8 @@
 This is **APP Books**, a book search system developed during a code challenge.💻
 
 ## A preview of the system:
-![A preview of the system](https://github.com/VitinhoSouza/challenge-book-store/blob/master/images/APP%20Books.mp4)
+
+https://user-images.githubusercontent.com/51724518/166177965-e358b179-7c44-43f3-93f9-49b7e5b6aa0d.mp4
 
 ## System features:
 - User login and access already registered
